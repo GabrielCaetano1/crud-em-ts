@@ -1,6 +1,8 @@
 import { NextFunction, Request, Response } from "express";
 import UserRepository from "../repository/UserRepository.js";
 
+
+
 class UserController{
     static async createUser(
         request: Request,

@@ -1,36 +1,24 @@
 import PrismaInstance from "../connection/PrismaInstance.js";
+import bcrypt from 'bcrypt';
 
-interface User{
-    id: number;
+interface CreateUser{
     name: string;
     password: string
-};
+}
 
-class UserRepository{
-    // private connectionDb = PrismaInstance.createConnection();
-    async create(body: User) {
+class UserReposity {
+    async create(body: CreateUser) {
         try {
-            const connectionExist = await PrismaInstance.createConnection();
-
-            const user = await connectionExist.users.create({
+            const conexaoExiste = await PrismaInstance.createConnection();
+            const user = await conexaoExiste.users.create({
                 data: {...body},
             });
-
-            console.log(user + "Deu Certo");
-            return user as User
-            
+            console.log(user.id);
+            return user as CreateUser
         } catch (error) {
-            throw error;
-        }
-    }
-
-    async getAll(id?: number) {
-        try {
-            
-        } catch (error) {
-            
+            throw error
         }
     }
 };
 
-export default UserRepository;
+export default UserReposity;
