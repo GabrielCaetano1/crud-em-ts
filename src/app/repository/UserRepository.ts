@@ -2,14 +2,17 @@ import PrismaInstance from "../../connection/PrismaInstance.js";
 
 
 class UserRepository {
-    async create({name, password, email, active}: CreateUser) {
+    async createUser({name, password, email, active}: CreateUser) {
         try {
-            const conexaoExiste = PrismaInstance.createConnection()
-            const createUser = await (await conexaoExiste).users.create(
+            console.log("Chegou aqui");
+            
+            const conexaoExiste = await PrismaInstance.createConnection()
+            const createUser = await conexaoExiste.users.create(
                 {
                     data: {name, password, email, active}
                 }
             );
+            
             return createUser;
 
         } catch (error) {

@@ -1,20 +1,22 @@
 import { Request, Response } from "express";
-import UserService from "../services/UserService.js";
+import { UserService } from "../services/UserService.js";
 
 
 class UserController{
-    private userService: UserService;
+    private userService: UserService
 
     constructor() {
         this.userService = new UserService();
     }
 
-    async createUser(req: Request, res: Response) {
+     createUser = async (req: Request, res: Response) => {
         try {
             const user = await this.userService.createUser(req.body);
             res.status(201).json(user);
 
         } catch (error) {
+            console.log(error);
+            
             res.status(500).json({error})
         }
     }
