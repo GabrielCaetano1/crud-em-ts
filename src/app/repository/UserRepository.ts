@@ -1,24 +1,98 @@
-import PrismaInstance from "../connection/PrismaInstance.js";
-import bcrypt from 'bcrypt';
+import PrismaInstance from "../../connection/PrismaInstance.js";
 
-interface CreateUser{
-    name: string;
-    password: string
-}
 
-class UserReposity {
-    async create(body: CreateUser) {
+class UserRepository {
+    async create({name, password, email, active}: CreateUser) {
+        try {
+            const conexaoExiste = PrismaInstance.createConnection()
+            const createUser = await (await conexaoExiste).users.create(
+                {
+                    data: {name, password, email, active}
+                }
+            );
+            return createUser;
+
+        } catch (error) {
+            if (error instanceof Error) {
+                throw new Error(`Erro ao criar usuário: ${error.message}`)
+                
+            } else {
+                throw new Error(`Erro ao criar usuário: Erro Desconhecido!`)
+            }
+        }
+    };
+
+    async getAll() {
         try {
             const conexaoExiste = await PrismaInstance.createConnection();
-            const user = await conexaoExiste.users.create({
-                data: {...body},
-            });
-            console.log(user.id);
-            return user as CreateUser
+            return await conexaoExiste.users.findMany();
+
         } catch (error) {
-            throw error
+            if (error instanceof Error) {
+                throw new Error(`Erro ao encontrar o usuário: ${error.message}`)
+                
+            } else {
+                throw new Error(`Erro ao encontrar o usuário: Erro Desconhecido!`)
+            }
         }
-    }
+    };
+
+    async getUnique(id: number){
+        try {
+            const conexaoExiste = await PrismaInstance.createConnection();
+            const user = await conexaoExiste.users.findUnique(
+                {where: {id}}
+            );
+            return user as CreateUser;
+
+        } catch (error) {
+            if (error instanceof Error) {
+                throw new Error(`Erro ao encontrar o usuário: ${error.message}`)
+                
+            } else {
+                throw new Error(`Erro ao encontrar o usuário: Erro Desconhecido!`)
+            }
+        }
+    };
+
+    async updateUser(id: number, data: UpdateUser){
+        try {
+            const conexaoExiste = await PrismaInstance.createConnection();
+            const updateUser = await conexaoExiste.users.update({
+                where: {id},
+                data: data
+            })
+            return updateUser;
+
+        } catch (error) {
+            if (error instanceof Error) {
+                throw new Error(`Erro ao deletar o usuário: ${error.message}`)
+                
+            } else {
+                throw new Error(`Erro ao deletar o usuário: Erro Desconhecido!`)
+            }
+        }
+    };
+
+    async deleteUser(id: number) {
+        try {
+            const conexaoExiste = await PrismaInstance.createConnection();
+            const deleteUser = await conexaoExiste.users.delete({
+                where: {id},
+            })
+            return deleteUser;
+
+        } catch (error) {
+            if (error instanceof Error) {
+                throw new Error(`Erro ao deletar o usuário: ${error.message}`)
+                
+            } else {
+                throw new Error(`Erro ao deletar o usuário: Erro Desconhecido!`)
+            }
+        }
+    };
+
+
 };
 
-export default UserReposity;
+export default UserRepository;
