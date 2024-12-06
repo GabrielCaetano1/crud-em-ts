@@ -1,6 +1,7 @@
 import PrismaInstance from "../../connection/PrismaInstance.js";
 class UserRepository {
     async createUser({ name, password, email, active }) {
+        console.log("Chegou aqui 3");
         try {
             console.log("Chegou aqui");
             const conexaoExiste = await PrismaInstance.createConnection();

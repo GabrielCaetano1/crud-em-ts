@@ -6,6 +6,7 @@ class UserController {
     }
     createUser = async (req, res) => {
         try {
+            console.log("Chegou aqui 2");
             const { name, email, password, active } = req.body;
             const user = await this.userService.createUser({ name, password, email, active });
             res.status(201).json(user);

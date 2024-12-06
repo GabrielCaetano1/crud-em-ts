@@ -3,6 +3,7 @@ import PrismaInstance from "../../connection/PrismaInstance.js";
 
 class UserRepository {
     async createUser({name, password, email, active}: CreateUser) {
+        console.log("Chegou aqui 3");
         try {
             console.log("Chegou aqui");
             
