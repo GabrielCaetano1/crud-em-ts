@@ -1,4 +1,4 @@
-import { UserService } from "../services/UserService.js";
+import UserService from "../services/UserService.js";
 class UserController {
     userService;
     constructor() {
@@ -6,24 +6,24 @@ class UserController {
     }
     createUser = async (req, res) => {
         try {
-            const user = await this.userService.createUser(req.body);
+            const { name, email, password, active } = req.body;
+            const user = await this.userService.createUser({ name, password, email, active });
             res.status(201).json(user);
         }
         catch (error) {
-            console.log(error);
             res.status(500).json({ error });
         }
     };
-    async getAllUsers(req, res) {
+    getAllUsers = async (req, res) => {
         try {
-            const user = await this.userService.getAllUsers();
+            const user = await this.userService.getAll();
             res.status(200).json(user);
         }
         catch (error) {
-            res.status(500).json({ error });
+            res.status(400).json({ error });
         }
-    }
-    async getUnique(req, res) {
+    };
+    getUnique = async (req, res) => {
         try {
             const user = await this.userService.getUnique(Number(req.params.body));
             user
@@ -33,8 +33,8 @@ class UserController {
         catch (error) {
             res.status(500).json({ error });
         }
-    }
-    async updateUser(req, res) {
+    };
+    updateUser = async (req, res) => {
         try {
             const user = await this.userService.updateUser(Number(req.params.id), req.body);
             res.status(200).json(user);
@@ -42,8 +42,8 @@ class UserController {
         catch (error) {
             res.status(500).json({ error });
         }
-    }
-    async deleteUser(req, res) {
+    };
+    deleteUser = async (req, res) => {
         try {
             const user = await this.userService.deleteUser(Number(req.params.id));
             res.status(200).json(user);
@@ -51,6 +51,6 @@ class UserController {
         catch (error) {
             res.status(500).json({ error });
         }
-    }
+    };
 }
 export default UserController;

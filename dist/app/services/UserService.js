@@ -1,35 +1,57 @@
 import UserRepository from "../repository/UserRepository.js";
-export class UserService {
+class UserService {
+    validateEmail(email) {
+        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        return emailRegex.test(email);
+    }
     userRepository;
     constructor() {
         this.userRepository = new UserRepository();
     }
-    ;
     async createUser(data) {
-        if (!data || !data.name || !data.password || !data.email || !data.active) {
+        if (data === null) {
             throw new Error('Invalid Data');
         }
         return await this.userRepository.createUser(data);
     }
-    ;
-    async getAllUsers() {
-        return await this.userRepository.getAll();
+    async getAll() {
+        return this.userRepository.getAll;
     }
-    ;
     async getUnique(id) {
         if (id === null) {
-            throw new Error('Invalid ID');
+            throw new Error('Invalid Id');
         }
         return await this.userRepository.getUnique(id);
     }
-    ;
     async updateUser(id, data) {
-        return await this.userRepository.updateUser(id, data);
+        if (id === null) {
+            throw new Error('Invalid Update Data');
+        }
+        const userExists = await this.userRepository.getUnique(id);
+        if (userExists === null) {
+            throw new Error('Invalid Update Data');
+        }
+        if (data.email === null && this.validateEmail) {
+            throw new Error('Invalid Email');
+        }
+        const updateData = {
+            ...data,
+            updated_at: new Date()
+        };
+        return await this.userRepository.updateUser(id, updateData);
     }
-    ;
     async deleteUser(id) {
-        return await this.userRepository.deleteUser(id);
+        try {
+            const userExists = await this.userRepository.getUnique(id);
+            if (userExists === null) {
+                throw new Error('Invalid User');
+            }
+            await this.userRepository.deleteUser(id);
+        }
+        catch (error) {
+            throw new Error('Catch');
+        }
     }
-    ;
 }
-// export default UserService
+;
+export default UserService;
