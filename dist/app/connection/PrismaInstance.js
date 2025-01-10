@@ -1,4 +1,4 @@
 class PrismaInstance {
-    static PrismaInstance;
+	static PrismaInstance;
 }
 export {};

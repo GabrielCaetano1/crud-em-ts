@@ -6,7 +6,7 @@ class UserRepository {
             console.log("Chegou aqui");
             const conexaoExiste = await PrismaInstance.createConnection();
             const createUser = await conexaoExiste.users.create({
-                data: { name, password, email, active }
+                data: {},
             });
             return createUser;
         }
@@ -19,7 +19,6 @@ class UserRepository {
             }
         }
     }
-    ;
     async getAll() {
         try {
             const conexaoExiste = await PrismaInstance.createConnection();
@@ -34,7 +33,6 @@ class UserRepository {
             }
         }
     }
-    ;
     async getUnique(id) {
         try {
             const conexaoExiste = await PrismaInstance.createConnection();
@@ -50,13 +48,12 @@ class UserRepository {
             }
         }
     }
-    ;
     async updateUser(id, data) {
         try {
             const conexaoExiste = await PrismaInstance.createConnection();
             const updateUser = await conexaoExiste.users.update({
                 where: { id },
-                data: data
+                data: data,
             });
             return updateUser;
         }
@@ -69,7 +66,6 @@ class UserRepository {
             }
         }
     }
-    ;
     async deleteUser(id) {
         try {
             const conexaoExiste = await PrismaInstance.createConnection();
@@ -87,7 +83,5 @@ class UserRepository {
             }
         }
     }
-    ;
 }
-;
 export default UserRepository;

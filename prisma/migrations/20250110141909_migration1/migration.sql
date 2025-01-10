@@ -1,0 +1,45 @@
+-- CreateTable
+CREATE TABLE `Users` (
+    `id` INTEGER NOT NULL AUTO_INCREMENT,
+    `name` VARCHAR(40) NOT NULL,
+    `password` VARCHAR(191) NOT NULL,
+    `active` BOOLEAN NOT NULL DEFAULT true,
+    `created_at` DATETIME(3) NOT NULL DEFAULT CURRENT_TIMESTAMP(3),
+    `updated_at` DATETIME(3) NOT NULL DEFAULT CURRENT_TIMESTAMP(3),
+
+    PRIMARY KEY (`id`)
+) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
+
+-- CreateTable
+CREATE TABLE `Contact` (
+    `id` INTEGER NOT NULL AUTO_INCREMENT,
+    `user_Id` INTEGER NOT NULL,
+    `phone1` VARCHAR(191) NOT NULL,
+    `phone2` VARCHAR(191) NULL,
+    `email` VARCHAR(191) NOT NULL,
+    `socials` VARCHAR(191) NULL,
+    `created_at` DATETIME(3) NOT NULL DEFAULT CURRENT_TIMESTAMP(3),
+    `updated_at` DATETIME(3) NOT NULL DEFAULT CURRENT_TIMESTAMP(3),
+
+    PRIMARY KEY (`id`)
+) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
+
+-- CreateTable
+CREATE TABLE `Address` (
+    `id` INTEGER NOT NULL AUTO_INCREMENT,
+    `user_Id` INTEGER NOT NULL,
+    `street` VARCHAR(191) NOT NULL,
+    `state` VARCHAR(191) NOT NULL,
+    `neighborhood` VARCHAR(191) NOT NULL,
+    `house_number` VARCHAR(191) NOT NULL,
+    `created_at` DATETIME(3) NOT NULL DEFAULT CURRENT_TIMESTAMP(3),
+    `updated_at` DATETIME(3) NOT NULL DEFAULT CURRENT_TIMESTAMP(3),
+
+    PRIMARY KEY (`id`)
+) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
+
+-- AddForeignKey
+ALTER TABLE `Contact` ADD CONSTRAINT `Contact_user_Id_fkey` FOREIGN KEY (`user_Id`) REFERENCES `Users`(`id`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+-- AddForeignKey
+ALTER TABLE `Address` ADD CONSTRAINT `Address_user_Id_fkey` FOREIGN KEY (`user_Id`) REFERENCES `Users`(`id`) ON DELETE CASCADE ON UPDATE CASCADE;

@@ -8,7 +8,12 @@ class UserController {
         try {
             console.log("Chegou aqui 2");
             const { name, email, password, active } = req.body;
-            const user = await this.userService.createUser({ name, password, email, active });
+            const user = await this.userService.createUser({
+                name,
+                password,
+                email,
+                active,
+            });
             res.status(201).json(user);
         }
         catch (error) {
@@ -29,7 +34,7 @@ class UserController {
             const user = await this.userService.getUnique(Number(req.params.body));
             user
                 ? res.status(200).json(user)
-                : res.status(404).json({ error: 'User not found' });
+                : res.status(404).json({ error: "User not found" });
         }
         catch (error) {
             res.status(500).json({ error });
