@@ -7,24 +7,39 @@
 	},
 	"files": {
 		"ignoreUnknown": false,
-		"ignore": []
+		"ignore": ["node_modules/**", "dist/**", "tsconfig.json", "*.d.ts"]
 	},
-	"formatter": {
-		"enabled": true,
-		"indentStyle": "tab"
-	},
+
 	"organizeImports": {
 		"enabled": true
 	},
 	"linter": {
 		"enabled": true,
 		"rules": {
-			"recommended": true
+			"recommended": true,
+			"complexity": {
+				"noStaticOnlyClass": "off",
+				"noThisInStatic": "off"
+			}
+		}
+	},
+	"json": {
+		"formatter": {
+			"trailingCommas": "none"
 		}
 	},
 	"javascript": {
 		"formatter": {
-			"quoteStyle": "double"
+			"enabled": true,
+			"arrowParentheses": "always",
+			"quoteStyle": "double",
+			"trailingCommas": "all",
+			"semicolons": "always",
+			"lineWidth": 80,
+			"bracketSpacing": true,
+			"bracketSameLine": true,
+			"indentStyle": "space",
+			"indentWidth": 2
 		}
 	}
 }

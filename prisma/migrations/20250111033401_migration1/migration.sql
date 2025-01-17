@@ -13,11 +13,11 @@ CREATE TABLE `Users` (
 -- CreateTable
 CREATE TABLE `Contact` (
     `id` INTEGER NOT NULL AUTO_INCREMENT,
-    `user_Id` INTEGER NOT NULL,
     `phone1` VARCHAR(191) NOT NULL,
     `phone2` VARCHAR(191) NULL,
     `email` VARCHAR(191) NOT NULL,
     `socials` VARCHAR(191) NULL,
+    `user_Id` INTEGER NOT NULL,
     `created_at` DATETIME(3) NOT NULL DEFAULT CURRENT_TIMESTAMP(3),
     `updated_at` DATETIME(3) NOT NULL DEFAULT CURRENT_TIMESTAMP(3),
 
@@ -27,11 +27,11 @@ CREATE TABLE `Contact` (
 -- CreateTable
 CREATE TABLE `Address` (
     `id` INTEGER NOT NULL AUTO_INCREMENT,
-    `user_Id` INTEGER NOT NULL,
     `street` VARCHAR(191) NOT NULL,
     `state` VARCHAR(191) NOT NULL,
     `neighborhood` VARCHAR(191) NOT NULL,
     `house_number` VARCHAR(191) NOT NULL,
+    `user_Id` INTEGER NOT NULL,
     `created_at` DATETIME(3) NOT NULL DEFAULT CURRENT_TIMESTAMP(3),
     `updated_at` DATETIME(3) NOT NULL DEFAULT CURRENT_TIMESTAMP(3),
 

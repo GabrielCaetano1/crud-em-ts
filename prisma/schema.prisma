@@ -12,7 +12,7 @@ model Users{
   name String @db.VarChar(40)
   password String
   active Boolean @default(true)
-  adress Address[]
+  address Address[]
   contact Contact[]
   created_at DateTime @default(now())
   updated_at DateTime @default(now())
@@ -20,24 +20,24 @@ model Users{
 
 model Contact {
   id Int @id @default(autoincrement())
-  user_Id Int
   phone1 String
   phone2 String?
   email String
   socials String?
   userRelation Users @relation(fields: [user_Id], references: [id], onDelete: Cascade, onUpdate: Cascade)
+  user_Id Int
   created_at DateTime @default(now())
   updated_at DateTime @default(now())
 }
 
 model Address {
   id Int @id @default(autoincrement())
-  user_Id Int
   street String
   state String
   neighborhood String
   house_number String
   userRelation Users @relation(fields: [user_Id], references: [id], onDelete: Cascade, onUpdate: Cascade)
+  user_Id Int
   created_at DateTime @default(now())
   updated_at DateTime @default(now())
 }

@@ -1,3 +1,5 @@
+type optionalValue = string | null;
+
 interface user {
 	name: string;
 	password: string;
@@ -13,19 +15,12 @@ interface address {
 
 interface contact {
 	phone1: string;
-	phone2?: string;
+	phone2?: optionalValue;
 	email: string;
-	socials?: string;
+	socials?: optionalValue;
 }
 
-interface UpdateUser {
-	name?: string;
-	password?: string;
-	email?: string;
-	active?: boolean;
-}
-
-interface UserCreate {
+interface CreateUser {
 	usuario: user;
 	endereco: address;
 	contato: contact;
