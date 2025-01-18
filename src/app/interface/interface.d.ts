@@ -2,6 +2,7 @@ type optionalValue = string | null;
 
 interface user {
 	name: string;
+	cpf: string;
 	password: string;
 	active?: boolean;
 }
