@@ -2,7 +2,7 @@ import PrismaInstance from "../../connection/PrismaInstance.js";
 
 export class UserRepository {
   private instance = PrismaInstance.createConnection();
-
+  
   async createUser({ usuario, endereco, contato }: CreateUser) {
     try {
       const transaction = await this.instance.$transaction(async (tsx) => {
@@ -13,7 +13,9 @@ export class UserRepository {
         const contact = await tsx.contact.create({
           data: { ...contato, user_Id: user.id },
         });
-        return { user, address, contact };
+        
+        return "Usuário cadastrado com sucesso!"
+        
       });
       return transaction;
     } catch (error) {
